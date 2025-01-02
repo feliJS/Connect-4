@@ -9,16 +9,16 @@
 </head>
 
 <body>
-    <div id="player">
-        <img id="player-icon" src="" alt="">
+    <div id="player-selection">
+        <img id="player-icon-selected" src="" alt="">
         <p>Select a profile picture!</p>
-          <input type="radio" id="dog" name="choose-pfp" checked>
-          <label for="dog"><img src="pictures/pfp_dog.webp" alt=""></label><br>
-          <input type="radio" id="bear" name="choose-pfp">
-          <label for="bear"><img src="pictures/pfp_bear.webp" alt=""></label><br>
-          <input type="radio" id="fox" name="choose-pfp">
-          <label for="fox"><img src="pictures/pfp_fox.webp" alt=""></label>
-        <div id="player-name"></div>
+        <div id="player-icon-section">
+             <button id="pfp-dog-btn"><img src="pictures/pfp_dog.webp" alt=""></button><br>
+             <button id="pfp-bear-btn"><img src="pictures/pfp_bear.webp" alt=""></buton><br>
+            <button id="pfp-fox-btn"><img src="pictures/pfp_fox.webp" alt=""></button><br>
+        </div>
+        <input type="text" id="player-name">
+        <button id="continue">-></button>
     </div>
     <div id="game-board">
         <div id="player1-game-board">

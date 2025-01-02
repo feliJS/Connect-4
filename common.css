@@ -1,3 +1,16 @@
 #player input {
     display: none;
 }
+
+#player-selection {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#player-selection button {
+    all: unset;
+    cursor: pointer;
+}
