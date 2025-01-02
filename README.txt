@@ -1,1 +1,0 @@
-öppnas från "player1" htmln!
