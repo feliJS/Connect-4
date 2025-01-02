@@ -1,34 +1,3 @@
-@font-face {
-    font-family: chewy;
-    src: url("Chewy-Regular.ttf");
-}
-
-* {
-    font-family: chewy;
-}
-
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-.box {
-    background-color: grey;
-    font-size: 20px;
-    border-radius: 10px;
-    height: 40px;
-    width: 40px;
-}
-
-#num-boxes {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 40px);
-    gap: 5px;
-}
-
-.info-box {
-    border: 1px solid black;
-    padding: 0px 30px;
+#player input {
+    display: none;
 }

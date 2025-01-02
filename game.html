@@ -9,18 +9,31 @@
 </head>
 
 <body>
-    <div class="center">
-        <a href="https://github.com/feliJS/DDU2-Projekt-G">Github repo</a>
-        <a href="https://webshare.mah.se/aq2578/website/">Webshare</a>
+    <div id="player">
+        <img id="player-icon" src="" alt="">
+        <p>Select a profile picture!</p>
+          <input type="radio" id="dog" name="choose-pfp" checked>
+          <label for="dog"><img src="pictures/pfp_dog.webp" alt=""></label><br>
+          <input type="radio" id="bear" name="choose-pfp">
+          <label for="bear"><img src="pictures/pfp_bear.webp" alt=""></label><br>
+          <input type="radio" id="fox" name="choose-pfp">
+          <label for="fox"><img src="pictures/pfp_fox.webp" alt=""></label>
+        <div id="player-name"></div>
     </div>
-    <div class="center">
-        <a href="remove/index.html">Remove</a>
-        <a href="sum/index.html">Sum</a>
-        <a href="repetitions/index.html">Repetitions</a>
-        <a href="clear/index.html">Clear</a>
-        <a href="findSame/index.html">Find Same</a>
-        <a href="addUpTo/index.html">Add Up To</a>
+    <div id="game-board">
+        <div id="player1-game-board">
+
+        </div>
+        <div id="game-section">
+            <div id="game-board">
+
+            </div>
+        </div>
+        <div id="player2-game-board">
+
+        </div>
     </div>
+    <script src="common.js"></script>
 </body>
 
 </html>
