@@ -11,9 +11,7 @@ function iconSelector() {
                 iconBtns[x].style.border = "none";
             }
             iconBtns[i].style.border = "2px solid tomato";
-            players[selectedPlayer].icon = iconBtns[i]
+            players[selectedPlayer].icon = iconBtns[i].querySelector("img");
         })
     }
 }
-
-iconSelector();

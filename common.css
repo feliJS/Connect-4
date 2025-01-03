@@ -1,16 +1,54 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
 #player input {
     display: none;
 }
 
 #player-selection {
+    background-color: rgba(0, 0, 255, 0.5);
     height: 100vh;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    position: absolute;
+    z-index: 1;
 }
 
-#player-selection button {
+#player-icon-section button {
     all: unset;
     cursor: pointer;
+}
+
+#game {
+    background-color: green;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    padding: 70px 30px 30px;
+    box-sizing: border-box;
+
+}
+
+#player1-score-board,
+#game-section,
+#player2-score-board {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    border: 10px solid black;
+
+}
+
+#game-section {
+    flex-grow: 2;
 }
