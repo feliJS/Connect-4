@@ -1,7 +1,7 @@
 
 const players = [{ scoreBoard: document.querySelector("#player1-score-board") }, { scoreBoard: document.querySelector("#player2-score-board") }];
 let selectedPlayer = 0;
-const gameBoard = [];
+const gameBoard = [/*[{DOM: }{DOM: }][{DOM: }{DOM: }][{DOM: }{DOM: }]*/];
 
 
 function iconSelector() {
@@ -22,10 +22,31 @@ function createGameBox() {
     const gameBoxDOM = document.createElement("div");
     gameBoxDOM.style.border = "1px solid black";
     gameBoxDOM.classList.add("game-box");
+    gameBoxDOM.addEventListener('mouseover', hoverGameBox);
+    gameBoxDOM.addEventListener('mouseout', hoverGameBox);
     gameBoardDOM.appendChild(gameBoxDOM);
     return gameBoxDOM;
 }
 
+function findCol(boxDOM) {
+    for (let i = 0; i < gameBoard.length; i++) {
+        for (let x = 0; x < gameBoard[i].length; x++) {
+            if(gameBoard[i][x].DOM == boxDOM){
+                return x
+            } 
+        }
+        
+    }
+}
+
+function hoverGameBox(e) {
+    const boxDOM = gameBoard[0][findCol(e.target)].DOM;
+    if(boxDOM.classList.contains("marked")) {
+        boxDOM.classList.remove("marked");
+    } else {
+        boxDOM.classList.add("marked");
+    }
+}
 function startGame() {
     for (let i = 0; i < players.length; i++) {
         playerIcon = players[i].icon
