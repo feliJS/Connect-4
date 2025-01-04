@@ -9,10 +9,18 @@ function iconSelector() {
     for (let i = 0; i < iconBtns.length; i++) {
         iconBtns[i].addEventListener("click", () => {
             for (let x = 0; x < iconBtns.length; x++) {
-                iconBtns[x].style.border = "none";
+                iconBtns[x].querySelector("img").style.border = "none";
             }
-            iconBtns[i].style.border = "2px solid tomato";
-            players[selectedPlayer].icon = iconBtns[i].querySelector("img");
+            iconBtns[i].querySelector("img").style.border = "2px solid #d55e0f";
+            iconBtns[i].querySelector("img").style.borderRadius = "8px";
+            const iconCurrentlySelectedDivDOM = document.querySelector("#player-icon-selected");
+            const iconCurrentlySelectedPictureDOM = document.createElement("img");
+            if(iconCurrentlySelectedDivDOM.innerHTML !== "") {
+                iconCurrentlySelectedDivDOM.innerHTML = "";
+            }
+            iconCurrentlySelectedPictureDOM.src = iconBtns[i].querySelector("img").src;
+            iconCurrentlySelectedDivDOM.appendChild(iconCurrentlySelectedPictureDOM); 
+            players[selectedPlayer].icon = iconCurrentlySelectedPictureDOM;     
         })
     }
 }

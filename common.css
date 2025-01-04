@@ -9,22 +9,36 @@ body {
 }
 
 #player-selection {
-    background-color: rgba(0, 0, 255, 0.5);
+    background: linear-gradient(133deg, rgba(0,60,120,1) 0%, rgba(0,50,219,1) 36%, rgba(6,137,228,1) 69%, rgba(255,255,255,1) 100%);
     height: 100vh;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    color: white;
 
     position: absolute;
     z-index: 1;
+}
+#player-selection p{
+    margin-bottom: 50px;
+}
+#player-icon-section{
+    display: flex;
+    gap: 10px;
 }
 
 #player-icon-section button {
     all: unset;
     cursor: pointer;
+
 }
+
+#player-icon-section button img{
+    width: 90px;
+}
+
 
 #game {
     background-color: green;
@@ -71,10 +85,15 @@ body {
     height: 100%;
 }
 
+#player-icon-selected img,
 #player1-score-board img,
 #player2-score-board img {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
+    border: 10px solid #bcbcbc;
+    border-radius: 8px; 
+    box-shadow: 0 0 15px 10px black; 
+    margin-bottom: 10px;
 }
 
 .marked {
