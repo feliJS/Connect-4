@@ -1,6 +1,7 @@
 
 const players = [{ scoreBoard: document.querySelector("#player1-score-board") }, { scoreBoard: document.querySelector("#player2-score-board") }];
 let selectedPlayer = 0;
+const gameBoard = [];
 
 
 function iconSelector() {
@@ -16,6 +17,15 @@ function iconSelector() {
     }
 }
 
+function createGameBox() {
+    const gameBoardDOM = document.querySelector("#game-board");
+    const gameBoxDOM = document.createElement("div");
+    gameBoxDOM.style.border = "1px solid black";
+    gameBoxDOM.classList.add("game-box");
+    gameBoardDOM.appendChild(gameBoxDOM);
+    return gameBoxDOM;
+}
+
 function startGame() {
     for (let i = 0; i < players.length; i++) {
         playerIcon = players[i].icon
@@ -23,6 +33,13 @@ function startGame() {
         const playerNameDOM = document.createElement("h2")
         playerNameDOM.textContent = players[i].username;
         players[i].scoreBoard.appendChild(playerNameDOM);
+    }
+    for (let row = 0; row < 5; row++) {
+        const rowBoxes = [];
+        for (let col = 0; col < 5; col++) {
+            rowBoxes.push({DOM: createGameBox(), value: null});
+        }
+        gameBoard.push(rowBoxes);
     }
 }
 
