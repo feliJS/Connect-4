@@ -15,16 +15,24 @@ function iconSelector() {
             iconBtns[i].querySelector("img").style.borderRadius = "8px";
             const iconCurrentlySelectedDivDOM = document.querySelector("#player-icon-selected");
             const iconCurrentlySelectedPictureDOM = document.createElement("img");
-            if(iconCurrentlySelectedDivDOM.innerHTML !== "") {
+            if (iconCurrentlySelectedDivDOM.innerHTML !== "") {
                 iconCurrentlySelectedDivDOM.innerHTML = "";
             }
             iconCurrentlySelectedPictureDOM.src = iconBtns[i].querySelector("img").src;
-            iconCurrentlySelectedDivDOM.appendChild(iconCurrentlySelectedPictureDOM); 
-            players[selectedPlayer].icon = iconCurrentlySelectedPictureDOM;     
+            iconCurrentlySelectedDivDOM.appendChild(iconCurrentlySelectedPictureDOM);
+            players[selectedPlayer].icon = iconCurrentlySelectedPictureDOM;
         })
     }
 }
 
+function findEmptySpotRow(col) {
+    for (let i = 0; i < gameBoard.length; i++) {
+        if (gameBoard[i][col].value !== null) {
+            return i - 1;
+        }
+    }
+    return gameBoard.length - 1;
+}
 function createGameBox() {
     const gameBoardDOM = document.querySelector("#game-board");
     const gameBoxDOM = document.createElement("div");
@@ -32,6 +40,21 @@ function createGameBox() {
     gameBoxDOM.classList.add("game-box");
     gameBoxDOM.addEventListener('mouseover', hoverGameBox);
     gameBoxDOM.addEventListener('mouseout', hoverGameBox);
+    gameBoxDOM.addEventListener('click', (e) => {
+        const col = findCol(e.target);
+        const row = findEmptySpotRow(col);
+        gameBoard[row][col].value = selectedPlayer;
+        //checkWinner();
+        //CheckOavgjort();
+        if (selectedPlayer == 0) {
+            gameBoard[row][col].DOM.classList.add("player-1-box");
+            selectedPlayer = 1;
+        }
+        else if (selectedPlayer == 1) {
+            gameBoard[row][col].DOM.classList.add("player-2-box");
+            selectedPlayer = 0;
+        }
+    });
     gameBoardDOM.appendChild(gameBoxDOM);
     return gameBoxDOM;
 }
@@ -39,17 +62,17 @@ function createGameBox() {
 function findCol(boxDOM) {
     for (let i = 0; i < gameBoard.length; i++) {
         for (let x = 0; x < gameBoard[i].length; x++) {
-            if(gameBoard[i][x].DOM == boxDOM){
+            if (gameBoard[i][x].DOM == boxDOM) {
                 return x
-            } 
+            }
         }
-        
+
     }
 }
 
 function hoverGameBox(e) {
     const boxDOM = gameBoard[0][findCol(e.target)].DOM;
-    if(boxDOM.classList.contains("marked")) {
+    if (boxDOM.classList.contains("marked")) {
         boxDOM.classList.remove("marked");
     } else {
         boxDOM.classList.add("marked");
@@ -66,7 +89,7 @@ function startGame() {
     for (let row = 0; row < 5; row++) {
         const rowBoxes = [];
         for (let col = 0; col < 5; col++) {
-            rowBoxes.push({DOM: createGameBox(), value: null});
+            rowBoxes.push({ DOM: createGameBox(), value: null });
         }
         gameBoard.push(rowBoxes);
     }
@@ -85,6 +108,7 @@ playerContinueBtn.addEventListener("click", () => {
     if (selectedPlayer === 2) {
         const choosePlayerInfoSectionDOM = document.querySelector("#player-selection");
         choosePlayerInfoSectionDOM.style.display = "none";
+        selectedPlayer = 0;
         startGame();
     }
 })

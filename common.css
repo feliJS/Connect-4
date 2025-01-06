@@ -9,7 +9,7 @@ body {
 }
 
 #player-selection {
-    background: linear-gradient(133deg, rgba(0,60,120,1) 0%, rgba(0,50,219,1) 36%, rgba(6,137,228,1) 69%, rgba(255,255,255,1) 100%);
+    background: linear-gradient(133deg, rgba(0, 60, 120, 1) 0%, rgba(0, 50, 219, 1) 36%, rgba(6, 137, 228, 1) 69%, rgba(255, 255, 255, 1) 100%);
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -21,10 +21,12 @@ body {
     position: absolute;
     z-index: 1;
 }
-#player-selection p{
+
+#player-selection p {
     margin-bottom: 50px;
 }
-#player-icon-section{
+
+#player-icon-section {
     display: flex;
     gap: 10px;
 }
@@ -35,7 +37,7 @@ body {
 
 }
 
-#player-icon-section button img{
+#player-icon-section button img {
     width: 90px;
 }
 
@@ -91,11 +93,19 @@ body {
     width: 150px;
     height: 150px;
     border: 10px solid #bcbcbc;
-    border-radius: 8px; 
-    box-shadow: 0 0 15px 10px black; 
+    border-radius: 8px;
+    box-shadow: 0 0 15px 10px black;
     margin-bottom: 10px;
 }
 
 .marked {
     background-color: pink;
+}
+
+.player-1-box {
+    background-color: olive;
+}
+
+.player-2-box {
+    background-color: magenta;
 }
