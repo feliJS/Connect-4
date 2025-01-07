@@ -26,9 +26,24 @@ body {
     margin-bottom: 50px;
 }
 
-#player-icon-section {
+#player-icon-section,
+#input-continue-player-select {
     display: flex;
     gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#input-continue-player-select input {
+    height: 30px;
+    font-size: 20px;
+}
+
+#input-continue-player-select button {
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    background-color: rgba(0, 50, 219, 1);
 }
 
 #player-icon-section button {
@@ -100,12 +115,4 @@ body {
 
 .marked {
     background-color: pink;
-}
-
-.player-1-box {
-    background-color: olive;
-}
-
-.player-2-box {
-    background-color: magenta;
 }

@@ -2,8 +2,24 @@
 const players = [{ scoreBoard: document.querySelector("#player1-score-board") }, { scoreBoard: document.querySelector("#player2-score-board") }];
 let selectedPlayer = 0;
 const gameBoard = [/*[{DOM: }{DOM: }][{DOM: }{DOM: }][{DOM: }{DOM: }]*/];
+const iconCurrentlySelectedDivDOM = document.querySelector("#player-icon-selected");
 let winningArrayOfBoxes = []
 
+function iconStylingsAndColors(imageSource) {
+    if (imageSource.includes("dog")) {
+        players[selectedPlayer].boxColor = "yellow";
+        return "linear-gradient(133deg, rgba(36,34,0,1) 0%, rgba(89,88,8,1) 35%, rgba(176,182,31,1) 64%, rgba(213,211,164,1) 100%)"
+    }
+    if (imageSource.includes("bear")) {
+        players[selectedPlayer].boxColor = "rosybrown";
+        return "linear-gradient(133deg, rgba(36,0,0,1) 0%, rgba(89,47,8,1) 35%, rgba(182,114,31,1) 64%, rgba(213,178,164,1) 100%)"
+    }
+    if (imageSource.includes("fox")) {
+        players[selectedPlayer].boxColor = "red";
+        return "linear-gradient(133deg, rgba(36,0,0,1) 0%, rgba(89,8,8,1) 35%, rgba(182,31,31,1) 64%, rgba(213,164,164,1) 100%)"
+    }
+
+}
 
 function iconSelector() {
     iconBtns = document.querySelectorAll("#player-icon-section button");
@@ -14,7 +30,6 @@ function iconSelector() {
             }
             iconBtns[i].querySelector("img").style.border = "2px solid #d55e0f";
             iconBtns[i].querySelector("img").style.borderRadius = "8px";
-            const iconCurrentlySelectedDivDOM = document.querySelector("#player-icon-selected");
             const iconCurrentlySelectedPictureDOM = document.createElement("img");
             if (iconCurrentlySelectedDivDOM.innerHTML !== "") {
                 iconCurrentlySelectedDivDOM.innerHTML = "";
@@ -22,6 +37,7 @@ function iconSelector() {
             iconCurrentlySelectedPictureDOM.src = iconBtns[i].querySelector("img").src;
             iconCurrentlySelectedDivDOM.appendChild(iconCurrentlySelectedPictureDOM);
             players[selectedPlayer].icon = iconCurrentlySelectedPictureDOM;
+            choosePlayerInfoSectionDOM.style.background = iconStylingsAndColors(iconBtns[i].querySelector("img").src);
         })
     }
 }
@@ -37,7 +53,7 @@ function findEmptySpotRow(col) {
 function checkWinnerVerti(currentCol) {
     for (let row = 0; row < gameBoard.length; row++) {
         if (gameBoard[row][currentCol].value == selectedPlayer) {
-            winningArrayOfBoxes.push(gameBoard[row][col].DOM)
+            winningArrayOfBoxes.push(gameBoard[row][currentCol].DOM)
         }
         else if (gameBoard[row][currentCol].value != selectedPlayer) {
             winningArrayOfBoxes = [];
@@ -89,11 +105,11 @@ function createGameBox() {
         checkWinner(col, row);
         //CheckOavgjort();
         if (selectedPlayer == 0) {
-            gameBoard[row][col].DOM.classList.add("player-1-box");
+            gameBoard[row][col].DOM.style.backgroundColor = players[selectedPlayer].boxColor
             selectedPlayer = 1;
         }
         else if (selectedPlayer == 1) {
-            gameBoard[row][col].DOM.classList.add("player-2-box");
+            gameBoard[row][col].DOM.style.backgroundColor = players[selectedPlayer].boxColor
             selectedPlayer = 0;
         }
     });
@@ -141,14 +157,20 @@ iconSelector();
 
 const playerContinueBtn = document.getElementById("continue");
 const inputDOM = document.querySelector("#player-selection input");
+const choosePlayerInfoSectionDOM = document.querySelector("#player-selection");
+const welcomeMessage = document.querySelector("#player-selection h1")
+welcomeMessage.textContent = "Welcome player 1 !"
 
 playerContinueBtn.addEventListener("click", () => {
     let playerName = inputDOM.value;
     players[selectedPlayer].username = playerName;
     inputDOM.value = "";
+    welcomeMessage.textContent = "Welcome player 2 !"
+    if (iconCurrentlySelectedDivDOM.innerHTML !== "") {
+        iconCurrentlySelectedDivDOM.innerHTML = "";
+    }
     selectedPlayer++;
     if (selectedPlayer === 2) {
-        const choosePlayerInfoSectionDOM = document.querySelector("#player-selection");
         choosePlayerInfoSectionDOM.style.display = "none";
         selectedPlayer = 0;
         startGame();
