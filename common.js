@@ -2,6 +2,7 @@
 const players = [{ scoreBoard: document.querySelector("#player1-score-board") }, { scoreBoard: document.querySelector("#player2-score-board") }];
 let selectedPlayer = 0;
 const gameBoard = [/*[{DOM: }{DOM: }][{DOM: }{DOM: }][{DOM: }{DOM: }]*/];
+let winningArrayOfBoxes = []
 
 
 function iconSelector() {
@@ -33,6 +34,47 @@ function findEmptySpotRow(col) {
     }
     return gameBoard.length - 1;
 }
+function checkWinnerVerti(currentCol) {
+    for (let row = 0; row < gameBoard.length; row++) {
+        if (gameBoard[row][currentCol].value == selectedPlayer) {
+            winningArrayOfBoxes.push(gameBoard[row][col].DOM)
+        }
+        else if (gameBoard[row][currentCol].value != selectedPlayer) {
+            winningArrayOfBoxes = [];
+        }
+        if (winningArrayOfBoxes.length == 4) {
+            break;
+        }
+    }
+    return winningArrayOfBoxes
+}
+function checkWinnerHoriz(currentRow) {
+    for (let col = 0; col < gameBoard[currentRow].length; col++) {
+        if (gameBoard[currentRow][col].value == selectedPlayer) {
+            winningArrayOfBoxes.push(gameBoard[currentRow][col].DOM)
+        }
+        else if (gameBoard[currentRow][col].value != selectedPlayer) {
+            winningArrayOfBoxes = [];
+        }
+        if (winningArrayOfBoxes.length == 4) {
+            break;
+        }
+    }
+    return winningArrayOfBoxes
+}
+function checkWinnerDiag(currentCol, currentRow) {
+
+}
+
+function checkWinner(currentCol, currentRow) {
+    let horizWin = checkWinnerHoriz(currentRow)
+    let vertiWin = checkWinnerVerti(currentCol)
+    let diagWin = checkWinnerDiag(currentCol, currentRow)
+    if (diagWin || horizWin || vertiWin) {
+
+    }
+}
+
 function createGameBox() {
     const gameBoardDOM = document.querySelector("#game-board");
     const gameBoxDOM = document.createElement("div");
@@ -44,7 +86,7 @@ function createGameBox() {
         const col = findCol(e.target);
         const row = findEmptySpotRow(col);
         gameBoard[row][col].value = selectedPlayer;
-        //checkWinner();
+        checkWinner(col, row);
         //CheckOavgjort();
         if (selectedPlayer == 0) {
             gameBoard[row][col].DOM.classList.add("player-1-box");
