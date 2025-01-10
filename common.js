@@ -79,11 +79,32 @@ function checkWinnerHoriz(currentRow) {
     return winningArrayOfBoxes
 }
 function checkWinnerDiag(currentCol, currentRow) {
+    let previousBoxValue = selectedPlayer
     for (let jumpInGrid = 0; jumpInGrid <= 3; jumpInGrid++) {
-        if(gameBoard[currentRow-jumpInGrid] != undefined && gameBoard[currentRow-jumpInGrid][currentCol+jumpInGrid] != undefined) { // om det inte finns någon box (då är vi utanför gameBoard dvs undefined)
-            if(gameBoard[currentRow-jumpInGrid][currentCol+jumpInGrid].value == selectedPlayer) {
-                winningArrayOfBoxes.push(gameBoard[currentRow-jumpInGrid][currentCol+jumpInGrid].DOM)
+        if (gameBoard[currentRow - jumpInGrid] != undefined && gameBoard[currentRow - jumpInGrid][currentCol + jumpInGrid] != undefined) { // om det inte finns någon box (då är vi utanför gameBoard dvs undefined)
+            let upDiagonallyBox = gameBoard[currentRow - jumpInGrid][currentCol + jumpInGrid];
+            if (upDiagonallyBox.value == selectedPlayer) {
+                if (previousBoxValue != selectedPlayer) { // om förra brickan är den andra spelaren så kan det inte bli 4 i rad samt om den sista är den andra spelaren så kan det fortfarande bli 4 i rad eftersom den sista inte räknas med men förra var selectedPlayer
+                    winningArrayOfBoxes = [];
+                } else {
+                    winningArrayOfBoxes.push(upDiagonallyBox.DOM)
+                }
             }
+            previousBoxValue = upDiagonallyBox.value;
+        }
+    }
+    previousBoxValue = selectedPlayer // reset to selectedPlayer again if it wasnt a streak / if last wasnt selected player
+    for (let jumpInGrid = 1; jumpInGrid <= 3; jumpInGrid++) { // changed value to 1 because i dont want to check current box twice
+        if (gameBoard[currentRow + jumpInGrid] != undefined && gameBoard[currentRow + jumpInGrid][currentCol - jumpInGrid] != undefined) { // om det inte finns någon box (då är vi utanför gameBoard dvs undefined)
+            let downDiagonallyBox = gameBoard[currentRow + jumpInGrid][currentCol - jumpInGrid];
+            if (downDiagonallyBox.value == selectedPlayer) {
+                if (previousBoxValue != selectedPlayer) { // om förra brickan är den andra spelaren så kan det inte bli 4 i rad samt om den sista är den andra spelaren så kan det fortfarande bli 4 i rad eftersom den sista inte räknas med men förra var selectedPlayer
+                    winningArrayOfBoxes = [];
+                } else {
+                    winningArrayOfBoxes.push(downDiagonallyBox.DOM)
+                }
+            }
+            previousBoxValue = downDiagonallyBox.value;
         }
     }
 }
