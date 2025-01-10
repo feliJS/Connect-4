@@ -79,7 +79,13 @@ function checkWinnerHoriz(currentRow) {
     return winningArrayOfBoxes
 }
 function checkWinnerDiag(currentCol, currentRow) {
-
+    for (let jumpInGrid = 0; jumpInGrid <= 3; jumpInGrid++) {
+        if(gameBoard[currentRow-jumpInGrid] != undefined && gameBoard[currentRow-jumpInGrid][currentCol+jumpInGrid] != undefined) { // om det inte finns någon box (då är vi utanför gameBoard dvs undefined)
+            if(gameBoard[currentRow-jumpInGrid][currentCol+jumpInGrid].value == selectedPlayer) {
+                winningArrayOfBoxes.push(gameBoard[currentRow-jumpInGrid][currentCol+jumpInGrid].DOM)
+            }
+        }
+    }
 }
 
 function checkWinner(currentCol, currentRow) {
