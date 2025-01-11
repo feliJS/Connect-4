@@ -109,11 +109,12 @@ function checkWinnerDiagRight(currentCol, currentRow) {
     }
 }
 
+
+
 function checkWinner(currentCol, currentRow) {
     winningArrayOfBoxes = []; // reset array before checking to make sure that its empty before the functions
     //let horizWin = checkWinnerHoriz(currentRow)
-    let vertiWin = checkWinnerVerti(currentCol)
-    console.log(winningArrayOfBoxes)
+    //let vertiWin = checkWinnerVerti(currentCol)
     //let diagRightWin = checkWinnerDiagRight(currentCol, currentRow)
     //let diagLeftWin = checkWinnerDiagLeft(currentCol, currentRow)
     //if (diagWin || horizWin || vertiWin) {
@@ -121,10 +122,20 @@ function checkWinner(currentCol, currentRow) {
     //}
 }
 
+
+
+function changeTurn(playerToChangeTo) {
+    players[selectedPlayer].scoreBoard.style.boxShadow = "none";
+    players[playerToChangeTo].scoreBoard.style.boxShadow = players[playerToChangeTo].boxColor + " 0 0 15px 10px";
+    players[selectedPlayer].icon.style.border = "none";
+    players[playerToChangeTo].icon.style.border = "2px solid " + players[playerToChangeTo].boxColor;
+    players[selectedPlayer].icon.style.boxShadow = "none";
+    players[playerToChangeTo].icon.style.boxShadow = "0 0 15px 10px black";
+    selectedPlayer = playerToChangeTo;
+}
 function createGameBox() {
     const gameBoardDOM = document.querySelector("#game-board");
     const gameBoxDOM = document.createElement("div");
-    gameBoxDOM.style.border = "1px solid black";
     gameBoxDOM.classList.add("game-box");
     gameBoxDOM.addEventListener('mouseover', hoverGameBox);
     gameBoxDOM.addEventListener('mouseout', hoverGameBox);
@@ -136,11 +147,12 @@ function createGameBox() {
         //CheckOavgjort();
         if (selectedPlayer == 0) {
             gameBoard[row][col].DOM.style.backgroundColor = players[selectedPlayer].boxColor
-            selectedPlayer = 1;
+            changeTurn(1);
         }
         else if (selectedPlayer == 1) {
             gameBoard[row][col].DOM.style.backgroundColor = players[selectedPlayer].boxColor
-            selectedPlayer = 0;
+            changeTurn(0);
+
         }
     });
     gameBoardDOM.appendChild(gameBoxDOM);
@@ -173,6 +185,10 @@ function startGame() {
         const playerNameDOM = document.createElement("h2")
         playerNameDOM.textContent = players[i].username;
         players[i].scoreBoard.appendChild(playerNameDOM);
+        const playerScoreDOM = document.createElement("h2")
+        playerScoreDOM.textContent = "0";
+        players[i].scoreBoard.appendChild(playerScoreDOM);
+
     }
     for (let row = 0; row < 5; row++) {
         const rowBoxes = [];
