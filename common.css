@@ -81,7 +81,11 @@ body {
     height: 100%;
     width: 100%;
     position: absolute;
+    padding: 20px 10px 40px 10px;
+    top: -50px;
+    left: -10px;
     z-index: -1;
+
 }
 
 #player1-score-board,
@@ -118,7 +122,6 @@ body {
 
 #game-board {
     background-color: rgba(0, 50, 219, 1);
-    border: 10px solid rgba(0, 50, 219, 1);
     height: 100%;
     width: 100%;
     display: grid;
@@ -135,7 +138,6 @@ body {
     width: 80%;
     height: 90%;
     border-radius: 50%;
-    border: 10px solid rgba(0, 50, 219, 1);
 
 }
 
