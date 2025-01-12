@@ -1,7 +1,7 @@
 
 const players = [{ scoreBoard: document.querySelector("#player1-score-board") }, { scoreBoard: document.querySelector("#player2-score-board") }];
 let selectedPlayer = 0;
-const gameBoard = [/*[{DOM: }{DOM: }][{DOM: }{DOM: }][{DOM: }{DOM: }]*/];
+let gameBoard = [/*[{DOM: }{DOM: }][{DOM: }{DOM: }][{DOM: }{DOM: }]*/];
 const iconCurrentlySelectedDivDOM = document.querySelector("#player-icon-selected");
 let winningArrayOfBoxes = []
 
@@ -121,7 +121,8 @@ function outPutWinner() {
         winningArrayOfBoxes[i].style.border = "2px solid black";
     }
     players[selectedPlayer].wins++;
-    players[selectedPlayer].scoreBoard.querySelector("h2").textContent = players[selectedPlayer].wins;
+    players[selectedPlayer].scoreBoard.querySelector("h3").textContent = players[selectedPlayer].wins;
+    resetBtn.style.boxShadow = "0 0 15px 10px black";
 }
 
 function checkWinner(currentCol, currentRow) {
@@ -228,19 +229,8 @@ function hoverGameBox(e) {
         boxDOM.classList.add("marked");
     }
 }
-function startGame() {
-    for (let i = 0; i < players.length; i++) {
-        playerIcon = players[i].icon
-        players[i].scoreBoard.appendChild(playerIcon);
-        const playerNameDOM = document.createElement("h2")
-        playerNameDOM.textContent = players[i].username;
-        players[i].scoreBoard.appendChild(playerNameDOM);
-        const playerScoreDOM = document.createElement("h2")
-        players[i].wins = 0;
-        playerScoreDOM.textContent = players[i].wins;
-        players[i].scoreBoard.appendChild(playerScoreDOM);
 
-    }
+function createTheWholeGameBoard() {
     for (let row = 0; row < 5; row++) {
         const rowBoxes = [];
         for (let col = 0; col < 5; col++) {
@@ -248,6 +238,33 @@ function startGame() {
         }
         gameBoard.push(rowBoxes);
     }
+}
+function startGame() {
+    for (let i = 0; i < players.length; i++) {
+        playerIcon = players[i].icon
+        players[i].scoreBoard.appendChild(playerIcon);
+        const playerNameDOM = document.createElement("h2")
+        playerNameDOM.textContent = players[i].username;
+        players[i].scoreBoard.appendChild(playerNameDOM);
+        const playerScoreDOM = document.createElement("h3")
+        players[i].wins = 0;
+        playerScoreDOM.textContent = players[i].wins;
+        players[i].scoreBoard.appendChild(playerScoreDOM);
+
+    }
+
+    createTheWholeGameBoard();
+    changeTurn(0); //starts with player 1 (ensures)
+
+    resetBtn.addEventListener("click", () => {
+        gameBoard = []
+        winningArrayOfBoxes = []
+        winnerOutputDOM.textContent = "Game off!";
+        lockedBecauseSomeoneWon = false;
+        document.getElementById("game-board").innerHTML = "";
+        createTheWholeGameBoard();
+        changeTurn(0);
+    })
 }
 
 iconSelector();
@@ -258,6 +275,7 @@ const choosePlayerInfoSectionDOM = document.querySelector("#player-selection");
 const welcomeMessage = document.querySelector("#player-selection h1")
 welcomeMessage.textContent = "Welcome player 1 !"
 const winnerOutputDOM = document.querySelector("#game-section h2")
+const resetBtn = document.getElementById("reset-btn");
 
 playerContinueBtn.addEventListener("click", () => {
     let playerName = inputDOM.value;
