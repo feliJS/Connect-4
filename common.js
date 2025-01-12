@@ -120,6 +120,8 @@ function outPutWinner() {
         winningArrayOfBoxes[i].style.boxShadow = "0 0 15px 10px black";
         winningArrayOfBoxes[i].style.border = "2px solid black";
     }
+    players[selectedPlayer].wins++;
+    players[selectedPlayer].scoreBoard.querySelector("h2").textContent = players[selectedPlayer].wins;
 }
 
 function checkWinner(currentCol, currentRow) {
@@ -234,7 +236,8 @@ function startGame() {
         playerNameDOM.textContent = players[i].username;
         players[i].scoreBoard.appendChild(playerNameDOM);
         const playerScoreDOM = document.createElement("h2")
-        playerScoreDOM.textContent = "0";
+        players[i].wins = 0;
+        playerScoreDOM.textContent = players[i].wins;
         players[i].scoreBoard.appendChild(playerScoreDOM);
 
     }
