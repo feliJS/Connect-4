@@ -114,16 +114,39 @@ function checkWinnerDiag(currentCol, currentRow, op1, op2) {
 }
 
 
-
+function outPutWinner() {
+    winnerOutputDOM.textContent = "Winner is " + players[selectedPlayer].username;
+    for (let i = 0; i < winningArrayOfBoxes.length; i++) {
+        winningArrayOfBoxes[i].style.boxShadow = "0 0 15px 10px black";
+        winningArrayOfBoxes[i].style.border = "2px solid black";
+    }
+}
 
 function checkWinner(currentCol, currentRow) {
     winningArrayOfBoxes = []; // reset array before checking to make sure that its empty before the functions
-    //let horizWin = checkWinnerHoriz(currentRow)
-    //let vertiWin = checkWinnerVerti(currentCol)
-    //let diagRightWin = checkWinnerDiagRight(currentCol, currentRow)
-    //let diagLeftWin = checkWinnerDiagLeft(currentCol, currentRow)
-    //checkWinnerDiag(currentCol, currentRow, "-", "+")
+    let horizWin = checkWinnerHoriz(currentRow)
+    if (horizWin.length >= 4) {
+        outPutWinner()
+        return; //avsluta gå ej vidare
+    }
+    winningArrayOfBoxes = [];
+    let vertiWin = checkWinnerVerti(currentCol)
+    if (vertiWin.length >= 4) {
+        outPutWinner()
+        return;
+    }
+    winningArrayOfBoxes = [];
+    checkWinnerDiag(currentCol, currentRow, "-", "+")
+    if (winningArrayOfBoxes.length >= 4) {
+        outPutWinner()
+        return;
+    }
+    winningArrayOfBoxes = [];
     checkWinnerDiag(currentCol, currentRow, "-", "-")
+    if (winningArrayOfBoxes.length >= 4) {
+        outPutWinner()
+        return;
+    }
     console.log(winningArrayOfBoxes);
 
     //if (diagWin || horizWin || vertiWin) {
@@ -142,6 +165,14 @@ function changeTurn(playerToChangeTo) {
     players[playerToChangeTo].icon.style.boxShadow = "0 0 15px 10px black";
     selectedPlayer = playerToChangeTo;
 }
+
+function lockMode(otherPlayer) {
+    players[otherPlayer].scoreBoard.style.boxShadow = "none";
+    players[otherPlayer].icon.style.border = "none";
+    players[otherPlayer].icon.style.boxShadow = "none";
+    lockedBecauseSomeoneWon = true;
+}
+let lockedBecauseSomeoneWon = false;
 function createGameBox() {
     const gameBoardDOM = document.querySelector("#game-board");
     const gameBoxDOM = document.createElement("div");
@@ -149,21 +180,29 @@ function createGameBox() {
     gameBoxDOM.addEventListener('mouseover', hoverGameBox);
     gameBoxDOM.addEventListener('mouseout', hoverGameBox);
     gameBoxDOM.addEventListener('click', (e) => {
-        const col = findCol(e.target);
-        const row = findEmptySpotRow(col);
-        gameBoard[row][col].value = selectedPlayer;
-        checkWinner(col, row);
-        //CheckOavgjort();
-        if (selectedPlayer == 0) {
-            gameBoard[row][col].DOM.style.backgroundColor = players[selectedPlayer].boxColor
-            changeTurn(1);
-        }
-        else if (selectedPlayer == 1) {
-            gameBoard[row][col].DOM.style.backgroundColor = players[selectedPlayer].boxColor
-            changeTurn(0);
-
+        if (lockedBecauseSomeoneWon == false) {
+            const col = findCol(e.target);
+            const row = findEmptySpotRow(col);
+            gameBoard[row][col].value = selectedPlayer;
+            checkWinner(col, row);
+            //CheckOavgjort();
+            if (selectedPlayer == 0) {
+                gameBoard[row][col].DOM.style.backgroundColor = players[selectedPlayer].boxColor
+                changeTurn(1);
+                if (winningArrayOfBoxes.length >= 4) {
+                    lockMode(1);
+                }
+            }
+            else if (selectedPlayer == 1) {
+                gameBoard[row][col].DOM.style.backgroundColor = players[selectedPlayer].boxColor
+                changeTurn(0);
+                if (winningArrayOfBoxes.length >= 4) {
+                    lockMode(0);
+                }
+            }
         }
     });
+
     gameBoardDOM.appendChild(gameBoxDOM);
     return gameBoxDOM;
 }
@@ -215,6 +254,7 @@ const inputDOM = document.querySelector("#player-selection input");
 const choosePlayerInfoSectionDOM = document.querySelector("#player-selection");
 const welcomeMessage = document.querySelector("#player-selection h1")
 welcomeMessage.textContent = "Welcome player 1 !"
+const winnerOutputDOM = document.querySelector("#game-section h2")
 
 playerContinueBtn.addEventListener("click", () => {
     let playerName = inputDOM.value;
