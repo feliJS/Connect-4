@@ -22,7 +22,7 @@ function iconStylingsAndColors(imageSource) {
 }
 
 function iconSelector() {
-    iconBtns = document.querySelectorAll("#player-icon-section button");
+    let iconBtns = document.querySelectorAll("#player-icon-section button");
     for (let i = 0; i < iconBtns.length; i++) {
         iconBtns[i].addEventListener("click", () => {
             for (let x = 0; x < iconBtns.length; x++) {
@@ -30,10 +30,10 @@ function iconSelector() {
             }
             iconBtns[i].querySelector("img").style.border = "2px solid #d55e0f";
             iconBtns[i].querySelector("img").style.borderRadius = "8px";
-            const iconCurrentlySelectedPictureDOM = document.createElement("img");
             if (iconCurrentlySelectedDivDOM.innerHTML !== "") {
                 iconCurrentlySelectedDivDOM.innerHTML = "";
             }
+            const iconCurrentlySelectedPictureDOM = document.createElement("img");
             iconCurrentlySelectedPictureDOM.src = iconBtns[i].querySelector("img").src;
             iconCurrentlySelectedDivDOM.appendChild(iconCurrentlySelectedPictureDOM);
             players[selectedPlayer].icon = iconCurrentlySelectedPictureDOM;
@@ -183,6 +183,7 @@ function lockMode(otherPlayer) {
     players[otherPlayer].icon.style.boxShadow = "none";
     lockedBecauseSomeoneWon = true;
 }
+
 let lockedBecauseSomeoneWon = false;
 function createGameBox() {
     const gameBoardDOM = document.querySelector("#game-board");
@@ -195,8 +196,8 @@ function createGameBox() {
             const col = findCol(e.target);
             const row = findEmptySpotRow(col);
             gameBoard[row][col].value = selectedPlayer;
-            checkWinner(col, row);
             checkDraw();
+            checkWinner(col, row);
             if (selectedPlayer == 0) {
                 gameBoard[row][col].DOM.style.backgroundColor = players[selectedPlayer].boxColor
                 changeTurn(1);
@@ -249,7 +250,7 @@ function createTheWholeGameBoard() {
 }
 function startGame() {
     for (let i = 0; i < players.length; i++) {
-        playerIcon = players[i].icon
+        let playerIcon = players[i].icon
         players[i].scoreBoard.appendChild(playerIcon);
         const playerNameDOM = document.createElement("h2")
         playerNameDOM.textContent = players[i].username;
