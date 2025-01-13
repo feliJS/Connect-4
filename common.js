@@ -151,13 +151,21 @@ function checkWinner(currentCol, currentRow) {
         return;
     }
     console.log(winningArrayOfBoxes);
-
-    //if (diagWin || horizWin || vertiWin) {
-
-    //}
 }
 
-
+function checkDraw() {
+    for (let i = 0; i < gameBoard.length; i++) {
+        for (let x = 0; x < gameBoard[i].length; x++) {
+            if (gameBoard[i][x].value != null) {
+                winnerOutputDOM.textContent = "Draw!";
+            }
+            else if (gameBoard[i][x].value == null) {
+                winnerOutputDOM.textContent = "Game on!";
+                return;
+            }
+        }
+    }
+}
 
 function changeTurn(playerToChangeTo) {
     players[selectedPlayer].scoreBoard.style.boxShadow = "none";
@@ -188,7 +196,7 @@ function createGameBox() {
             const row = findEmptySpotRow(col);
             gameBoard[row][col].value = selectedPlayer;
             checkWinner(col, row);
-            //CheckOavgjort();
+            checkDraw();
             if (selectedPlayer == 0) {
                 gameBoard[row][col].DOM.style.backgroundColor = players[selectedPlayer].boxColor
                 changeTurn(1);
