@@ -1,3 +1,11 @@
+@font-face {
+    font-family: Monsterrat;
+    src: url("Montserrat-VariableFont_wght.ttf");
+  }
+
+*{
+    font-family: Monsterrat;
+}
 body {
     margin: 0;
     padding: 0;
