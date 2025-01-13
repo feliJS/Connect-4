@@ -1,7 +1,7 @@
 
 const players = [{ scoreBoard: document.querySelector("#player1-score-board") }, { scoreBoard: document.querySelector("#player2-score-board") }];
 let selectedPlayer = 0;
-let gameBoard = [/*[{DOM: }{DOM: }][{DOM: }{DOM: }][{DOM: }{DOM: }]*/];
+let gameBoard = [];
 const iconCurrentlySelectedDivDOM = document.querySelector("#player-icon-selected");
 let winningArrayOfBoxes = []
 
@@ -83,10 +83,10 @@ function checkWinnerDiag(currentCol, currentRow, op1, op2) {
     for (let jumpInGrid = 0; jumpInGrid <= 3; jumpInGrid++) {
         let jumpRow = op1 == "-" ? (currentRow - jumpInGrid) : (currentRow + jumpInGrid);
         let jumpCol = op2 == "-" ? (currentCol - jumpInGrid) : (currentCol + jumpInGrid);
-        if (gameBoard[jumpRow] != undefined && gameBoard[jumpRow][jumpCol] != undefined) { // om det inte finns någon box (då är vi utanför gameBoard dvs undefined)
+        if (gameBoard[jumpRow] != undefined && gameBoard[jumpRow][jumpCol] != undefined) { 
             let upDiagonallyBox = gameBoard[jumpRow][jumpCol];
             if (upDiagonallyBox.value == selectedPlayer) {
-                if (previousBoxValue != selectedPlayer) { // om förra brickan är den andra spelaren så kan det inte bli 4 i rad samt om den sista är den andra spelaren så kan det fortfarande bli 4 i rad eftersom den sista inte räknas med men förra var selectedPlayer
+                if (previousBoxValue != selectedPlayer) { 
                     winningArrayOfBoxes = [];
                 } else {
                     winningArrayOfBoxes.push(upDiagonallyBox.DOM)
@@ -95,14 +95,14 @@ function checkWinnerDiag(currentCol, currentRow, op1, op2) {
             previousBoxValue = upDiagonallyBox.value;
         }
     }
-    previousBoxValue = selectedPlayer // reset to selectedPlayer again if it wasnt a streak / if last wasnt selected player
-    for (let jumpInGrid = 1; jumpInGrid <= 3; jumpInGrid++) { // changed value to 1 because i dont want to check current box
+    previousBoxValue = selectedPlayer 
+    for (let jumpInGrid = 1; jumpInGrid <= 3; jumpInGrid++) { 
         let jumpRow = op1 != "-" ? (currentRow - jumpInGrid) : (currentRow + jumpInGrid);
         let jumpCol = op2 != "-" ? (currentCol - jumpInGrid) : (currentCol + jumpInGrid);
-        if (gameBoard[jumpRow] != undefined && gameBoard[jumpRow][jumpCol] != undefined) { // om det inte finns någon box (då är vi utanför gameBoard dvs undefined)
+        if (gameBoard[jumpRow] != undefined && gameBoard[jumpRow][jumpCol] != undefined) { 
             let downDiagonallyBox = gameBoard[jumpRow][jumpCol];
             if (downDiagonallyBox.value == selectedPlayer) {
-                if (previousBoxValue != selectedPlayer) { // om förra brickan är den andra spelaren så kan det inte bli 4 i rad samt om den sista är den andra spelaren så kan det fortfarande bli 4 i rad eftersom den sista inte räknas med men förra var selectedPlayer
+                if (previousBoxValue != selectedPlayer) { 
                     winningArrayOfBoxes = [];
                 } else {
                     winningArrayOfBoxes.push(downDiagonallyBox.DOM)
@@ -126,11 +126,11 @@ function outPutWinner() {
 }
 
 function checkWinner(currentCol, currentRow) {
-    winningArrayOfBoxes = []; // reset array before checking to make sure that its empty before the functions
+    winningArrayOfBoxes = []; 
     let horizWin = checkWinnerHoriz(currentRow)
     if (horizWin.length >= 4) {
         outPutWinner()
-        return; //avsluta gå ej vidare
+        return; 
     }
     winningArrayOfBoxes = [];
     let vertiWin = checkWinnerVerti(currentCol)
@@ -150,7 +150,6 @@ function checkWinner(currentCol, currentRow) {
         outPutWinner()
         return;
     }
-    console.log(winningArrayOfBoxes);
 }
 
 function checkDraw() {
@@ -263,7 +262,7 @@ function startGame() {
     }
 
     createTheWholeGameBoard();
-    changeTurn(0); //starts with player 1 (ensures)
+    changeTurn(0);
 
     resetBtn.addEventListener("click", () => {
         gameBoard = []
