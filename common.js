@@ -48,7 +48,7 @@ function findEmptySpotRow(col) {
             return i - 1;
         }
     }
-    return gameBoard.length - 1;
+    return gameBoard.length - 1; //what this?
 }
 function checkWinnerVerti(currentCol) {
     for (let row = 0; row < gameBoard.length; row++) {
@@ -189,7 +189,7 @@ function createGameBox() {
     const gameBoardDOM = document.querySelector("#game-board");
     const gameBoxDOM = document.createElement("div");
     gameBoxDOM.classList.add("game-box");
-    gameBoxDOM.addEventListener('mouseover', hoverGameBox);
+    gameBoxDOM.addEventListener('mouseover', hoverGameBox); //this ``? what
     gameBoxDOM.addEventListener('mouseout', hoverGameBox);
     gameBoxDOM.addEventListener('click', (e) => {
         if (lockedBecauseSomeoneWon == false) {
@@ -232,7 +232,7 @@ function findCol(boxDOM) {
 
 function hoverGameBox(e) {
     const boxDOM = gameBoard[0][findCol(e.target)].DOM;
-    if (boxDOM.classList.contains("marked")) {
+    if (boxDOM.classList.contains("marked")) { //how does this work again? what
         boxDOM.classList.remove("marked");
     } else {
         boxDOM.classList.add("marked");
